@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reloj_proyecto/controllers/clockCubit/clock_cubit.dart';
+import 'package:reloj_proyecto/models/repository/time_info.dart';
 import 'package:reloj_proyecto/screens/clock_screen.dart';
 
 void main() {
@@ -15,4 +16,7 @@ void main() {
       home: ClockScreen(),
     ),
   ));
+
+  TimeInfo timeinfo = TimeInfo();
+  timeinfo.fetchTimes();
 }

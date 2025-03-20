@@ -1,17 +1,40 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:reloj_proyecto/models/multi_clocks_model.dart';
 
 class TimeInfo {
-  final String apiUrl =
-      'https://timeapi.io/api/Time/current/zone?timeZone=America/Santo_Domingo';
+  List<MultiClocksModel> multiClocksList = [];
+  final List<String> cities = [
+    'America/New_York',
+    'Australia/Sydney',
+    'Europe/Madrid',
+    'Europe/Paris',
+  ];
 
-  Future<DateTime> fetchTime() async {
-    final res = await http.get(Uri.parse(apiUrl));
-    if (res.statusCode == 200) {
-      final data = jsonDecode(res.body);
-      return DateTime.parse(data['dateTime']);
-    } else {
-      throw Exception();
+  Future<List<MultiClocksModel>> fetchTimes() async {
+    try {
+      int c = 0;
+      for (String city in cities) {
+        final res = await http.get(Uri.parse(
+            'https://timeapi.io/api/Time/current/zone?timeZone=$city'));
+
+        if (res.statusCode == 200) {
+          final data = jsonDecode(res.body);
+          MultiClocksModel multiClockItem = MultiClocksModel(
+            cityTime: DateTime.parse(data['dateTime']),
+            cityName: city,
+          );
+          multiClocksList.add(multiClockItem);
+        }
+
+        print(
+            '${multiClocksList[c].cityName} : ${multiClocksList[c].cityTime}');
+        c++;
+      }
+    } catch (e) {
+      print('Error: $e');
     }
+
+    return multiClocksList;
   }
 }
