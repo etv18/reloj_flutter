@@ -22,7 +22,7 @@ class TimeInfo {
           final data = jsonDecode(res.body);
           MultiClocksModel multiClockItem = MultiClocksModel(
             cityTime: DateTime.parse(data['dateTime']),
-            cityName: city,
+            cityName: city.replaceAll('_', ' '),
           );
           multiClocksList.add(multiClockItem);
         }

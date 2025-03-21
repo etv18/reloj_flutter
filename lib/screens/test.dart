@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class MultiClockScreen extends StatefulWidget {
+  const MultiClockScreen({super.key});
+
   @override
   _MultiClockScreenState createState() => _MultiClockScreenState();
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reloj_proyecto/controllers/clockCubit/clock_cubit.dart';
 import 'package:reloj_proyecto/myWidgets/bottom_nav_bar.dart';
+import 'package:reloj_proyecto/myWidgets/custom_app_bar.dart';
 
 class ClockScreen extends StatefulWidget {
   const ClockScreen({super.key});
@@ -20,16 +21,8 @@ class _ClockScreenState extends State<ClockScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Watch Screen',
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.teal,
-          ),
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: 'Clock Sceen',
       ),
       body: Center(
         child: BlocBuilder<ClockCubit, DateTime>(
