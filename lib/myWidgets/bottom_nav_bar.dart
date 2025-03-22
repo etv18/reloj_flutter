@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 
-class BottomNavBar extends StatelessWidget {
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
+class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  int _page = 0;
+  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  @override
   Widget build(BuildContext context) {
-    return const BottomAppBar(
-      color: Colors.blue,
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Text(
-          'Emmanuel Tavarez ',
-          style: TextStyle(color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
-      ),
+    return CurvedNavigationBar(
+      key: _bottomNavigationKey,
+      index: 0,
+      items: <Widget>[
+        Icon(Icons.shopping_bag, size: 40),
+        Icon(Icons.list, size: 40),
+        Icon(Icons.compare_arrows, size: 40),
+        Icon(Icons.call_split, size: 40),
+        Icon(Icons.perm_identity, size: 40),
+      ],
+      color: Colors.white,
+      buttonBackgroundColor: Colors.white,
+      backgroundColor: Colors.blueAccent,
+      animationCurve: Curves.easeInOut,
+      animationDuration: Duration(milliseconds: 600),
+      onTap: (index) {
+        setState(() {
+          _page = index;
+        });
+      },
+      letIndexChange: (index) => true,
     );
   }
 }

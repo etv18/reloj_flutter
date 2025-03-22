@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        'Watch Screen',
+        title,
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
