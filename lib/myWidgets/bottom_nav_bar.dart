@@ -24,9 +24,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         Icon(Icons.call_split, size: 40),
         Icon(Icons.perm_identity, size: 40),
       ],
-      color: Colors.white,
-      buttonBackgroundColor: Colors.white,
-      backgroundColor: Colors.blueAccent,
+      color: Color.fromARGB(255, 239, 234, 234),
+      buttonBackgroundColor: Color(0XFFB0B0B0),
+      backgroundColor: Colors.transparent,
       animationCurve: Curves.easeInOut,
       animationDuration: Duration(milliseconds: 600),
       onTap: (index) {
