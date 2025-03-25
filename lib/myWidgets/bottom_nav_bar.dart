@@ -7,18 +7,25 @@ import 'package:go_router/go_router.dart';
 import 'package:reloj_proyecto/models/route_paths.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+  int? indexIcon;
+  BottomNavBar({super.key, this.indexIcon});
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _page = 0;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  late int? indexPage;
+  final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    indexPage = widget.indexIcon;
+  }
 
   final List<String> _routes = [
-    '/',
+    '/', //Clock Sreen is root view
     '/${RoutePaths.stopWatch}',
     '/${RoutePaths.multiClock}',
     '/${RoutePaths.timer}',
@@ -26,9 +33,21 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    ///It gives me the current route path Im in without parameters
+    ///when I click on the icons and go router takes me to the screen
+    ///I want to see.
+    ///ex: '/clock-screen', '/stop-watch-screen'
+    int getSelectedIndex(BuildContext context) {
+      String currentRoute =
+          GoRouter.of(context).routeInformationProvider.value.uri.toString();
+
+      return _routes.indexOf(
+          currentRoute); // looks for the path string in _routes List and returns it
+    }
+
     return CurvedNavigationBar(
       key: _bottomNavigationKey,
-      index: 0,
+      index: getSelectedIndex(context),
       items: <Widget>[
         Icon(Icons.watch_later, size: 40),
         Icon(Icons.watch_rounded, size: 40),
@@ -41,10 +60,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       animationCurve: Curves.easeInOut,
       animationDuration: Duration(milliseconds: 600),
       onTap: (index) {
-        setState(() {
-          _page = index;
-        });
-        context.go(_routes[_page]);
+        context.push(_routes[index]);
       },
       letIndexChange: (index) => true,
     );
