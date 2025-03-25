@@ -14,14 +14,8 @@ class TimerScreen extends StatefulWidget {
 
 class _TimerScreenState extends State<TimerScreen> {
   int time = 10;
-  late int initialTime;
+  late int initialTime = time;
   late Timer _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    initialTime = time;
-  }
 
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {

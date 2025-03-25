@@ -5,7 +5,9 @@ import 'package:reloj_proyecto/myWidgets/bottom_nav_bar.dart';
 import 'package:reloj_proyecto/myWidgets/custom_app_bar.dart';
 
 class ClockScreen extends StatefulWidget {
-  const ClockScreen({super.key});
+  const ClockScreen({
+    super.key,
+  });
 
   @override
   State<ClockScreen> createState() => _ClockScreenState();

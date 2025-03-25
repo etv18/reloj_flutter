@@ -6,7 +6,9 @@ import 'package:reloj_proyecto/myWidgets/bottom_nav_bar.dart';
 import 'package:reloj_proyecto/myWidgets/custom_app_bar.dart';
 
 class MultiClocksScreen extends StatefulWidget {
-  const MultiClocksScreen({super.key});
+  const MultiClocksScreen({
+    super.key,
+  });
 
   @override
   State<MultiClocksScreen> createState() => _MultiClocksScreenState();
