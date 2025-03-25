@@ -18,7 +18,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   final List<String> _routes = [
-    '/${RoutePaths.clock}',
+    '/',
     '/${RoutePaths.stopWatch}',
     '/${RoutePaths.multiClock}',
     '/${RoutePaths.timer}',
@@ -44,7 +44,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         setState(() {
           _page = index;
         });
-        context.go(_routes[index]);
+        context.go(_routes[_page]);
       },
       letIndexChange: (index) => true,
     );

@@ -24,7 +24,7 @@ class _ClockScreenState extends State<ClockScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Clock Sceen',
+        title: 'Clock Srceen',
       ),
       body: Center(
         child: BlocBuilder<ClockCubit, DateTime>(

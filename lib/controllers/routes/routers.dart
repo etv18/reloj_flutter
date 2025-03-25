@@ -13,25 +13,19 @@ class RouterController {
         GoRoute(
           path: '/',
           builder: (BuildContext context, GoRouterState state) {
-            return StopWatchScreen();
+            return ClockScreen();
           },
           routes: <RouteBase>[
             GoRoute(
-              path: RoutePaths.clock,
+              path: RoutePaths.stopWatch,
               builder: (BuildContext context, GoRouterState state) {
-                return ClockScreen();
+                return StopWatchScreen();
               },
             ),
             GoRoute(
               path: RoutePaths.multiClock,
               builder: (BuildContext context, GoRouterState state) {
                 return const MultiClocksScreen();
-              },
-            ),
-            GoRoute(
-              path: RoutePaths.stopWatch,
-              builder: (BuildContext context, GoRouterState state) {
-                return const StopWatchScreen();
               },
             ),
             GoRoute(
