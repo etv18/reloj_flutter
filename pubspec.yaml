@@ -14,6 +14,7 @@ dependencies:
   curved_navigation_bar: ^1.0.6 #latest version
   font_awesome_flutter: ^10.8.0
   go_router: ^14.8.1
+  numberpicker: ^2.1.2
 
 dev_dependencies:
   flutter_test:
