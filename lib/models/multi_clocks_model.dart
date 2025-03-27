@@ -1,6 +1,4 @@
-import 'package:reloj_proyecto/controllers/multipleClocksCubit/multi_clocks_states.dart';
-
-class MultiClocksModel extends MultiClocksStates {
+class MultiClocksModel {
   DateTime cityTime;
   String cityName;
 

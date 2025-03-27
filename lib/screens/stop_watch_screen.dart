@@ -19,6 +19,11 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'StopWatch'),
+      body: Center(
+        child: Column(
+          children: [],
+        ),
+      ),
       bottomNavigationBar: BottomNavBar(
         indexIcon: 1,
       ),

@@ -22,9 +22,13 @@ class ClockCubit extends Cubit<DateTime> {
   String formatTime(DateTime time) {
     ///This basically will add 0 everytime a hour, min or sec reach a 0 value
     ///instead of presenting nothing it will add 1 or 2 zeros
-    return "${time.hour.toString().padLeft(2, '0')}:"
-        "${time.minute.toString().padLeft(2, '0')}:"
-        "${time.second.toString().padLeft(2, '0')}";
+    int hour =
+        time.hour > 12 ? time.hour - 12 : time.hour; // Convertir a formato 12h
+    String period = time.hour >= 12 ? "PM" : "AM"; // Determinar AM/PM
+
+    return "${hour.toString().padLeft(2, '0')}:" // Asegurar que la hora tenga 2 dígitos
+        "${time.minute.toString().padLeft(2, '0')}:" // Minutos con 2 dígitos
+        "${time.second.toString().padLeft(2, '0')} $period"; // Segundos con 2 dígitos y AM/PM
   }
 
   @override
