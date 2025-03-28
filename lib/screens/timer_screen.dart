@@ -78,16 +78,16 @@ class _TimerScreenState extends State<TimerScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '${remainingTime.inHours.toString().padLeft(2, '0')}:'
-                    '${(remainingTime.inMinutes % 60).toString().padLeft(2, '0')}:'
-                    '${(remainingTime.inSeconds % 60).toString().padLeft(2, '0')}',
+                    '${state.remainingTime.inHours.toString().padLeft(2, '0')}:'
+                    '${(state.remainingTime.inMinutes % 60).toString().padLeft(2, '0')}:'
+                    '${(state.remainingTime.inSeconds % 60).toString().padLeft(2, '0')}',
                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
                     onPressed: () {
                       context.read<TimerCubit>().startTimer(_hour, _min, sec);
                     },
-                    icon: Icon(Icons.access_alarm),
+                    icon: Icon(Icons.start, size: 49),
                     color: Colors.red,
                     iconSize: 30.0,
                   ),

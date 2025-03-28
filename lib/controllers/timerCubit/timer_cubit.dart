@@ -19,6 +19,10 @@ class TimerCubit extends Cubit<TimerStates> {
   void startTimer(int hour, int min, int sec) {
     ///This will take the exact moment when the time in hours, mins and secs
     ///which was entered is finished
+    if (hour == 0 && min == 0 && sec == 0) {
+      emit(TimerInitial());
+      return;
+    }
     targetTime = DateTime.now().add(Duration(
       hours: hour,
       minutes: min,
@@ -36,8 +40,13 @@ class TimerCubit extends Cubit<TimerStates> {
           timer.cancel();
         }
         emit(TimerRunning(remainingTime));
+        print("==================> La funcion no se detiene ");
       },
     );
+  }
+
+  void pauseTimer() {
+    emit(TimerPaused(remainingTime));
   }
 
   String getTimeStringFormated(Duration remainingTime) {

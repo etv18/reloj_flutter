@@ -50,9 +50,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
       index: getSelectedIndex(context),
       items: <Widget>[
         Icon(Icons.watch_later, size: 40),
-        Icon(Icons.watch_rounded, size: 40),
-        Icon(FontAwesomeIcons.globe),
         Icon(Icons.timer, size: 40),
+        Icon(FontAwesomeIcons.globe),
+        Icon(Icons.timer_10_select_outlined, size: 40),
       ],
       color: Color.fromARGB(255, 239, 234, 234),
       buttonBackgroundColor: Color(0XFFB0B0B0),
