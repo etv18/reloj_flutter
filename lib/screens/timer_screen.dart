@@ -17,6 +17,7 @@ class _TimerScreenState extends State<TimerScreen> {
   int sec = 0;
   int _min = 0;
   int _hour = 0;
+  bool _isRunning = false;
 
   @override
   void dispose() {
@@ -148,8 +149,14 @@ class _TimerScreenState extends State<TimerScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.play_circle, size: 69),
+                        onPressed: () {
+                          setState(() {
+                            _isRunning = !_isRunning;
+                          });
+                        },
+                        icon: Icon(
+                            _isRunning ? Icons.pause_circle : Icons.play_circle,
+                            size: 69),
                         color: Colors.blue,
                         iconSize: 30.0,
                       ),
