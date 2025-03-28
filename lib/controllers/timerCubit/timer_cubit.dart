@@ -33,14 +33,15 @@ class TimerCubit extends Cubit<TimerStates> {
       Duration(seconds: 1),
       (timer) {
         remainingTime = targetTime.difference(DateTime.now());
-        print("Tiempo restante: $remainingTime");
+        print('==========**> $remainingTime');
 
         if (remainingTime.isNegative) {
+          emit(TimerInitial());
           remainingTime = Duration.zero;
           timer.cancel();
+          return;
         }
         emit(TimerRunning(remainingTime));
-        print("==================> La funcion no se detiene ");
       },
     );
   }

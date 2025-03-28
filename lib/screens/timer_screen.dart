@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -19,51 +17,10 @@ class _TimerScreenState extends State<TimerScreen> {
   int sec = 0;
   int _min = 0;
   int _hour = 0;
-  int time = 10;
-  late int initialTime;
-
-  late Timer _timer;
-  late DateTime targetTime;
-  Duration remainingTime = Duration.zero;
-
-  /*void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (time == 0) {
-        setState(() {
-          time = initialTime;
-          timer.cancel();
-        });
-      } else {
-        setState(() {
-          time--;
-          print('=====> TIME: ${time.toString()}');
-        });
-      }
-    });
-  }*/
-
-  void startTimer() {
-    targetTime = DateTime.now().add(Duration(
-      hours: _hour,
-      minutes: _min,
-      seconds: sec + 1,
-    ));
-
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        remainingTime = targetTime.difference(DateTime.now());
-        if (remainingTime.isNegative) {
-          remainingTime = Duration.zero;
-          timer.cancel();
-        }
-      });
-    });
-  }
 
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
   }
 
   @override
@@ -83,13 +40,20 @@ class _TimerScreenState extends State<TimerScreen> {
                     '${(state.remainingTime.inSeconds % 60).toString().padLeft(2, '0')}',
                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      context.read<TimerCubit>().startTimer(_hour, _min, sec);
-                    },
-                    icon: Icon(Icons.start, size: 49),
-                    color: Colors.red,
-                    iconSize: 30.0,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          context
+                              .read<TimerCubit>()
+                              .startTimer(_hour, _min, sec);
+                        },
+                        icon: Icon(Icons.play_circle, size: 69),
+                        color: Colors.blue,
+                        iconSize: 30.0,
+                      ),
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -169,15 +133,35 @@ class _TimerScreenState extends State<TimerScreen> {
               ),
             );
           } else if (state is TimerRunning) {
-            final duration = state.remainingTime;
-
-            print("Nuevo estado en UI: $duration");
             return Center(
-              child: Text(
-                context
-                    .read<TimerCubit>()
-                    .getTimeStringFormated(state.remainingTime),
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    context
+                        .read<TimerCubit>()
+                        .getTimeStringFormated(state.remainingTime),
+                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.play_circle, size: 69),
+                        color: Colors.blue,
+                        iconSize: 30.0,
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.stop_circle, size: 69),
+                        color: const Color.fromARGB(255, 243, 33, 33),
+                        iconSize: 30.0,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             );
           } else {
