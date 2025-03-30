@@ -14,10 +14,20 @@ class TimerScreen extends StatefulWidget {
 }
 
 class _TimerScreenState extends State<TimerScreen> {
-  int sec = 0;
+  int _sec = 0;
   int _min = 0;
   int _hour = 0;
   bool _isRunning = false;
+
+  void resetValues() {
+    _sec = 0;
+    _min = 0;
+    _hour = 0;
+  }
+
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -48,7 +58,8 @@ class _TimerScreenState extends State<TimerScreen> {
                         onPressed: () {
                           context
                               .read<TimerCubit>()
-                              .startTimer(_hour, _min, sec);
+                              .startTimer(_hour, _min, _sec);
+                          resetValues();
                         },
                         icon: Icon(Icons.play_circle, size: 69),
                         color: Colors.blue,
@@ -108,11 +119,11 @@ class _TimerScreenState extends State<TimerScreen> {
                         width: 10,
                       ),
                       NumberPicker(
-                        value: sec,
+                        value: _sec,
                         minValue: 0,
                         maxValue: 60,
                         itemHeight: 80,
-                        onChanged: (value) => setState(() => sec = value),
+                        onChanged: (value) => setState(() => _sec = value),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: Colors.black26),
@@ -153,6 +164,9 @@ class _TimerScreenState extends State<TimerScreen> {
                           setState(() {
                             _isRunning = !_isRunning;
                           });
+                          if (_isRunning) {
+                            context.read<TimerCubit>().pauseTimer();
+                          }
                         },
                         icon: Icon(
                             _isRunning ? Icons.pause_circle : Icons.play_circle,
@@ -161,7 +175,66 @@ class _TimerScreenState extends State<TimerScreen> {
                         iconSize: 30.0,
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.read<TimerCubit>().resetTimer();
+                          setState(() {
+                            _isRunning = false;
+                          });
+                          resetValues();
+                        },
+                        icon: Icon(Icons.stop_circle, size: 69),
+                        color: const Color.fromARGB(255, 243, 33, 33),
+                        iconSize: 30.0,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          } else if (state is TimerPaused) {
+            return Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    context
+                        .read<TimerCubit>()
+                        .getTimeStringFormated(state.remainingTime),
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isRunning = !_isRunning;
+                          });
+                          if (_isRunning) {
+                            context.read<TimerCubit>().pauseTimer();
+                          } else {
+                            context.read<TimerCubit>().continueTimer();
+                          }
+                        },
+                        icon: Icon(
+                            _isRunning ? Icons.pause_circle : Icons.play_circle,
+                            size: 69),
+                        color: Colors.blue,
+                        iconSize: 30.0,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          context.read<TimerCubit>().resetTimer();
+                          setState(() {
+                            _isRunning = false;
+                          });
+                          resetValues();
+                        },
                         icon: Icon(Icons.stop_circle, size: 69),
                         color: const Color.fromARGB(255, 243, 33, 33),
                         iconSize: 30.0,

@@ -26,12 +26,12 @@ class TimerCubit extends Cubit<TimerStates> {
     targetTime = DateTime.now().add(Duration(
       hours: hour,
       minutes: min,
-      seconds: sec + 1,
+      seconds: sec + 2,
     ));
 
     _timer = Timer.periodic(
       Duration(seconds: 1),
-      (timer) {
+      (Timer timer) {
         remainingTime = targetTime.difference(DateTime.now());
         print('==========**> $remainingTime');
 
@@ -48,6 +48,28 @@ class TimerCubit extends Cubit<TimerStates> {
 
   void pauseTimer() {
     emit(TimerPaused(remainingTime));
+    _timer.cancel();
+  }
+
+  void continueTimer() {
+    targetTime = DateTime.now().add(remainingTime);
+
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+      remainingTime = targetTime.difference(DateTime.now());
+
+      if (remainingTime.isNegative) {
+        emit(TimerInitial());
+        remainingTime = Duration.zero;
+        timer.cancel();
+        return;
+      }
+      emit(TimerRunning(remainingTime));
+    });
+  }
+
+  void resetTimer() {
+    emit(TimerInitial());
+    _timer.cancel();
   }
 
   String getTimeStringFormated(Duration remainingTime) {

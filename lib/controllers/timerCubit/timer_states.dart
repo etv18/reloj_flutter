@@ -10,15 +10,19 @@ abstract class TimerStates extends Equatable {
 }
 
 class TimerInitial extends TimerStates {
-  TimerInitial() : super(Duration.zero);
+  const TimerInitial() : super(Duration.zero);
 }
 
 class TimerRunning extends TimerStates {
-  const TimerRunning(Duration remainingTime) : super(remainingTime);
+  const TimerRunning(super.remainingTime);
 }
 
 class TimerPaused extends TimerStates {
-  const TimerPaused(Duration remainingTime) : super(remainingTime);
+  const TimerPaused(super.remainingTime);
+}
+
+class TimerContinue extends TimerStates {
+  const TimerContinue(super.remainingTime);
 }
 
 class TimerEnded extends TimerStates {
