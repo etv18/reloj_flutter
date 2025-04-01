@@ -21,10 +21,6 @@ class TimerPaused extends TimerStates {
   const TimerPaused(super.remainingTime);
 }
 
-class TimerContinue extends TimerStates {
-  const TimerContinue(super.remainingTime);
-}
-
 class TimerEnded extends TimerStates {
   const TimerEnded() : super(Duration.zero);
 }
