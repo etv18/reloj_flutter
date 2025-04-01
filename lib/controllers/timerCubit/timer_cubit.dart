@@ -30,7 +30,7 @@ class TimerCubit extends Cubit<TimerStates> {
     ));
 
     _timer = Timer.periodic(
-      Duration(seconds: 1),
+      Duration(milliseconds: 100),
       (Timer timer) {
         remainingTime = targetTime.difference(DateTime.now());
         print('==========**> $remainingTime');
@@ -54,7 +54,7 @@ class TimerCubit extends Cubit<TimerStates> {
   void continueTimer() {
     targetTime = DateTime.now().add(remainingTime);
 
-    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    _timer = Timer.periodic(Duration(milliseconds: 100), (Timer timer) {
       remainingTime = targetTime.difference(DateTime.now());
 
       if (remainingTime.isNegative) {
