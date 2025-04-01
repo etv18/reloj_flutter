@@ -59,6 +59,13 @@ class StopWatchCubit extends Cubit<StopWatchStates> {
   }
    */
 
+  @override
+  Future<void> close() {
+    stopWatch.stop();
+    _timer.cancel();
+    return super.close();
+  }
+
   String formatTimeString() {
     return '${elapseTime.inHours.toString().padLeft(2, '0')}:'
         '${(elapseTime.inMinutes % 60).toString().padLeft(2, '0')}:'
