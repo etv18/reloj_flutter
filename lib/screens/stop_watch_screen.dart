@@ -88,6 +88,9 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             );

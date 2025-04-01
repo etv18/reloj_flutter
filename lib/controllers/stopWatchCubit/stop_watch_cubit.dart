@@ -11,6 +11,7 @@ class StopWatchCubit extends Cubit<StopWatchStates> {
   Duration elapseTime = Duration.zero;
   Stopwatch stopWatch = Stopwatch();
   late Timer _timer;
+  List<Duration> laps = [];
 
   void startStopWatch() {
     stopWatch.start();
@@ -40,6 +41,23 @@ class StopWatchCubit extends Cubit<StopWatchStates> {
     _timer.cancel();
     elapseTime = Duration.zero;
   }
+
+  void addLap() {
+    laps.add(elapseTime);
+    emit(StopWatchRunning(elapseTime));
+    print('laps: $laps');
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
+   *   void addLap() {
+    if (state is StopWatchRunning) {
+      final laps = (state as StopWatchRunning).laps;
+      laps?.add(elapseTime);
+      emit(StopWatchRunning(elapseTime, laps));
+    }
+  }
+   */
 
   String formatTimeString() {
     return '${elapseTime.inHours.toString().padLeft(2, '0')}:'
