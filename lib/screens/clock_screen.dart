@@ -6,6 +6,7 @@ import 'package:reloj_proyecto/controllers/clockCubit/clock_state.dart';
 import 'package:reloj_proyecto/myWidgets/bottom_nav_bar.dart';
 import 'package:reloj_proyecto/myWidgets/custom_app_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ClockScreen extends StatefulWidget {
   const ClockScreen({
@@ -84,7 +85,11 @@ class _ClockScreenState extends State<ClockScreen> {
                     context
                         .read<ClockCubit>()
                         .formatTime(state.currentTime, is_12HourFormat),
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.tourney(
+                      fontSize: 50,
+                      fontWeight: FontWeight.w900,
+                      color: const Color.fromARGB(255, 2, 87, 110),
+                    ),
                   ),
                 ],
               );
