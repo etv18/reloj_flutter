@@ -26,7 +26,7 @@ class ClockCubit extends Cubit<ClockStates> {
 
   void setPrefs() async {
     prefs.setBool('is_12HourFormat', is_12HourFormat);
-    print("==============>is_12HourFormat: $is_12HourFormat");
+    print("==============>is_12HourFormat [CLOCK CUBIT]: $is_12HourFormat");
   }
 
   void startClock() {

@@ -1,5 +1,3 @@
-import 'package:equatable/equatable.dart';
-
 abstract class ClockStates extends DateTime {
   final DateTime currentTime;
   bool hourFormat;

@@ -19,6 +19,7 @@ class _MultiClocksScreenState extends State<MultiClocksScreen> {
   void initState() {
     super.initState();
     context.read<MultiClocksCubit>();
+    context.read<MultiClocksCubit>().initPrefs();
   }
 
   @override
@@ -39,9 +40,7 @@ class _MultiClocksScreenState extends State<MultiClocksScreen> {
                 return ListTile(
                   title: Text(city.cityName),
                   subtitle: Text(
-                    "${city.cityTime.hour.toString().padLeft(2, '0')}:"
-                    "${city.cityTime.minute.toString().padLeft(2, '0')}:"
-                    "${city.cityTime.second.toString().padLeft(2, '0')}",
+                    context.read<MultiClocksCubit>().formatTime(city.cityTime),
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 );
