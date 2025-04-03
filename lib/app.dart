@@ -6,6 +6,8 @@ import 'package:reloj_proyecto/controllers/routes/routers.dart';
 import 'package:reloj_proyecto/controllers/stopWatchCubit/stop_watch_cubit.dart';
 import 'package:reloj_proyecto/controllers/timerCubit/timer_cubit.dart';
 
+/// App file
+
 class App extends StatelessWidget {
   const App({super.key});
 
