@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:reloj_proyecto/controllers/multipleClocksCubit/multi_clocks_cubit.dart';
 import 'package:reloj_proyecto/models/multi_clocks_model.dart';
 import 'package:reloj_proyecto/myWidgets/bottom_nav_bar.dart';
@@ -38,10 +39,19 @@ class _MultiClocksScreenState extends State<MultiClocksScreen> {
               itemBuilder: (context, index) {
                 final city = cityTimesInfo[index];
                 return ListTile(
-                  title: Text(city.cityName),
+                  title: Text(city.cityName,
+                      style: GoogleFonts.tourney(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w900,
+                        color: Color.fromARGB(255, 2, 87, 110),
+                      )),
                   subtitle: Text(
                     context.read<MultiClocksCubit>().formatTime(city.cityTime),
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.tourney(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      color: Color.fromARGB(255, 2, 87, 110),
+                    ),
                   ),
                 );
               });

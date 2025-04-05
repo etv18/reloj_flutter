@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:reloj_proyecto/controllers/stopWatchCubit/stop_watch_cubit.dart';
 import 'package:reloj_proyecto/controllers/stopWatchCubit/stop_watch_states.dart';
 import 'package:reloj_proyecto/myWidgets/bottom_nav_bar.dart';
@@ -14,10 +17,23 @@ class StopWatchScreen extends StatefulWidget {
 
 class _StopWatchScreenState extends State<StopWatchScreen> {
   bool _isRunning = false;
+  Color currentColor = Colors.red;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
+    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+      setState(() {
+        currentColor = currentColor == Colors.red ? Colors.blue : Colors.red;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -33,14 +49,25 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                 children: [
                   Text(
                     '00:00:00.0',
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: GoogleFonts.tourney(
+                      fontSize: 70,
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 2, 87, 110),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       context.read<StopWatchCubit>().startStopWatch();
                     },
-                    child: const Text('Iniciar'),
+                    child: Text(
+                      'Start',
+                      style: GoogleFonts.tourney(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w900,
+                        color: Color.fromARGB(255, 2, 87, 110),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -52,7 +79,11 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                 children: [
                   Text(
                     context.read<StopWatchCubit>().formatTimeString(),
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: GoogleFonts.tourney(
+                      fontSize: 70,
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 2, 87, 110),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -101,10 +132,10 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                 children: [
                   Text(
                     context.read<StopWatchCubit>().formatTimeString(),
-                    style: TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 214, 8, 8),
+                    style: GoogleFonts.tourney(
+                      fontSize: 70,
+                      fontWeight: FontWeight.w700,
+                      color: currentColor,
                     ),
                   ),
                   const SizedBox(height: 20),

@@ -28,7 +28,7 @@ class TimeInfo {
         }
 
         print(
-            '${multiClocksList[c].cityName} : ${multiClocksList[c].cityTime}');
+            'city info: ${multiClocksList[c].cityName} : ${multiClocksList[c].cityTime}');
         c++;
       }
     } catch (e) {

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:reloj_proyecto/controllers/timerCubit/timer_cubit.dart';
 import 'package:reloj_proyecto/controllers/timerCubit/timer_states.dart';
@@ -18,6 +21,8 @@ class _TimerScreenState extends State<TimerScreen> {
   int _min = 0;
   int _hour = 0;
   bool _isRunning = false;
+  Color currentColor = const Color.fromARGB(255, 66, 6, 220);
+  Timer? _timer;
 
   void resetValues() {
     _sec = 0;
@@ -25,12 +30,21 @@ class _TimerScreenState extends State<TimerScreen> {
     _hour = 0;
   }
 
+  @override
   void initState() {
     super.initState();
+    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+      setState(() {
+        currentColor = currentColor == Color.fromARGB(255, 66, 6, 220)
+            ? const Color.fromARGB(255, 24, 121, 42)
+            : Color.fromARGB(255, 66, 6, 220);
+      });
+    });
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -49,7 +63,11 @@ class _TimerScreenState extends State<TimerScreen> {
                     '${state.remainingTime.inHours.toString().padLeft(2, '0')}:'
                     '${(state.remainingTime.inMinutes % 60).toString().padLeft(2, '0')}:'
                     '${(state.remainingTime.inSeconds % 60).toString().padLeft(2, '0')}',
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.tourney(
+                      fontSize: 70,
+                      fontWeight: FontWeight.w700,
+                      color: const Color.fromARGB(255, 2, 87, 110),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -80,15 +98,15 @@ class _TimerScreenState extends State<TimerScreen> {
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: Colors.black26),
                         ),
-                        textStyle: TextStyle(
+                        textStyle: GoogleFonts.tourney(
+                          fontSize: 40,
+                          fontWeight: FontWeight.w900,
                           color: Color.fromARGB(255, 133, 130, 130),
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w600,
                         ),
-                        selectedTextStyle: TextStyle(
-                          color: Color.fromARGB(255, 53, 50, 50),
-                          fontSize: 38.0,
-                          fontWeight: FontWeight.w800,
+                        selectedTextStyle: GoogleFonts.tourney(
+                          fontSize: 40,
+                          fontWeight: FontWeight.w700,
+                          color: const Color.fromARGB(255, 2, 87, 110),
                         ),
                       ),
                       SizedBox(
@@ -104,15 +122,15 @@ class _TimerScreenState extends State<TimerScreen> {
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: Colors.black26),
                         ),
-                        textStyle: TextStyle(
+                        textStyle: GoogleFonts.tourney(
+                          fontSize: 40,
+                          fontWeight: FontWeight.w900,
                           color: Color.fromARGB(255, 133, 130, 130),
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w600,
                         ),
-                        selectedTextStyle: TextStyle(
-                          color: Color.fromARGB(255, 53, 50, 50),
-                          fontSize: 38.0,
-                          fontWeight: FontWeight.w800,
+                        selectedTextStyle: GoogleFonts.tourney(
+                          fontSize: 40,
+                          fontWeight: FontWeight.w700,
+                          color: const Color.fromARGB(255, 2, 87, 110),
                         ),
                       ),
                       SizedBox(
@@ -128,15 +146,15 @@ class _TimerScreenState extends State<TimerScreen> {
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: Colors.black26),
                         ),
-                        textStyle: TextStyle(
+                        textStyle: GoogleFonts.tourney(
+                          fontSize: 40,
+                          fontWeight: FontWeight.w900,
                           color: Color.fromARGB(255, 133, 130, 130),
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w600,
                         ),
-                        selectedTextStyle: TextStyle(
-                          color: Color.fromARGB(255, 53, 50, 50),
-                          fontSize: 38.0,
-                          fontWeight: FontWeight.w800,
+                        selectedTextStyle: GoogleFonts.tourney(
+                          fontSize: 40,
+                          fontWeight: FontWeight.w700,
+                          color: const Color.fromARGB(255, 2, 87, 110),
                         ),
                       ),
                     ],
@@ -154,7 +172,11 @@ class _TimerScreenState extends State<TimerScreen> {
                     context
                         .read<TimerCubit>()
                         .getTimeStringFormated(state.remainingTime),
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.tourney(
+                      fontSize: 70,
+                      fontWeight: FontWeight.w700,
+                      color: const Color.fromARGB(255, 2, 87, 110),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -201,10 +223,10 @@ class _TimerScreenState extends State<TimerScreen> {
                     context
                         .read<TimerCubit>()
                         .getTimeStringFormated(state.remainingTime),
-                    style: TextStyle(
-                      fontSize: 40,
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
+                    style: GoogleFonts.tourney(
+                      fontSize: 70,
+                      fontWeight: FontWeight.w700,
+                      color: currentColor,
                     ),
                   ),
                   Row(

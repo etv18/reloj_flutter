@@ -44,51 +44,95 @@ class _ClockScreenState extends State<ClockScreen> {
           builder: (context, state) {
             if (state is ClockInitial) {
               return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    child: AnimatedToggleSwitch<bool>.dual(
-                      current: is_12HourFormat,
-                      first: false,
-                      second: true,
-                      spacing: 50.0,
-                      style: const ToggleStyle(
-                        borderColor: Colors.transparent,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: Offset(0, 1.5),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          child: AnimatedToggleSwitch<bool>.dual(
+                            current: is_12HourFormat,
+                            first: false,
+                            second: true,
+                            spacing: 50.0,
+                            style: const ToggleStyle(
+                              borderColor: Colors.transparent,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: Offset(0, 1.5),
+                                ),
+                              ],
+                            ),
+                            borderWidth: 5.0,
+                            height: 55,
+                            onChanged: (b) => setState(() {
+                              is_12HourFormat = b;
+                            }),
+                            styleBuilder: (b) => ToggleStyle(
+                                indicatorColor: b
+                                    ? const Color.fromARGB(255, 99, 129, 218)
+                                    : const Color.fromARGB(255, 18, 118, 18)),
+                            iconBuilder: (value) => value
+                                ? const Icon(Icons.twelve_mp_sharp)
+                                : const Icon(Icons.twenty_four_mp),
+                            textBuilder: (value) => value
+                                ? Center(
+                                    child: Text(
+                                      'Format 12h',
+                                      style: GoogleFonts.tourney(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w900,
+                                        color: const Color.fromARGB(
+                                            255, 99, 129, 218),
+                                      ),
+                                    ),
+                                  )
+                                : Center(
+                                    child: Text(
+                                      'Format 24h',
+                                      style: GoogleFonts.tourney(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w900,
+                                        color: const Color.fromARGB(
+                                            255, 18, 118, 18),
+                                      ),
+                                    ),
+                                  ),
                           ),
-                        ],
-                      ),
-                      borderWidth: 5.0,
-                      height: 55,
-                      onChanged: (b) => setState(() {
-                        is_12HourFormat = b;
-                      }),
-                      styleBuilder: (b) => ToggleStyle(
-                          indicatorColor: b
-                              ? const Color.fromARGB(255, 99, 129, 218)
-                              : const Color.fromARGB(255, 18, 118, 18)),
-                      iconBuilder: (value) => value
-                          ? const Icon(Icons.twelve_mp_sharp)
-                          : const Icon(Icons.twenty_four_mp),
-                      textBuilder: (value) => value
-                          ? const Center(child: Text('Format 24h'))
-                          : const Center(child: Text('Format 12h')),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    context
-                        .read<ClockCubit>()
-                        .formatTime(state.currentTime, is_12HourFormat),
-                    style: GoogleFonts.tourney(
-                      fontSize: 50,
-                      fontWeight: FontWeight.w900,
-                      color: const Color.fromARGB(255, 2, 87, 110),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 10),
+                        Text(
+                          context
+                              .read<ClockCubit>()
+                              .formatTime(state.currentTime, is_12HourFormat),
+                          style: GoogleFonts.tourney(
+                            fontSize: 50,
+                            fontWeight: FontWeight.w600,
+                            color: const Color.fromARGB(255, 2, 87, 110),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "${state.currentTime.day}/${state.currentTime.month}/${state.currentTime.year}",
+                          style: GoogleFonts.tourney(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900,
+                            color: const Color.fromARGB(255, 2, 87, 110),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
